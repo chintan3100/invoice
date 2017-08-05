@@ -38,9 +38,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -73,8 +71,9 @@
             this.label19 = new System.Windows.Forms.Label();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HSNACS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UOM = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,6 +85,9 @@
             this.CGSTAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SGSTRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SGSTAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IGSTRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IGSTAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -166,6 +168,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.dateTimePicker2);
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.textBox18);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.textBox17);
@@ -174,9 +178,7 @@
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.textBox7);
             this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.textBox5);
             this.groupBox1.Controls.Add(this.textBox6);
-            this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label5);
@@ -199,22 +201,16 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(143, 44);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(110, 21);
             this.textBox1.TabIndex = 8;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(143, 95);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
+            this.textBox2.Size = new System.Drawing.Size(110, 21);
             this.textBox2.TabIndex = 9;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(143, 69);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 21);
-            this.textBox3.TabIndex = 10;
             // 
             // textBox4
             // 
@@ -222,13 +218,6 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 21);
             this.textBox4.TabIndex = 13;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(597, 71);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 21);
-            this.textBox5.TabIndex = 12;
             // 
             // textBox6
             // 
@@ -431,7 +420,6 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Product,
-            this.Total,
             this.HSNACS,
             this.UOM,
             this.Qty,
@@ -442,12 +430,16 @@
             this.CGSTRate,
             this.CGSTAmount,
             this.SGSTRate,
-            this.SGSTAmount});
+            this.SGSTAmount,
+            this.IGSTRate,
+            this.IGSTAmount,
+            this.Total});
             this.dataGridView1.Location = new System.Drawing.Point(25, 336);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(939, 150);
             this.dataGridView1.TabIndex = 18;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
             // 
             // button1
             // 
@@ -462,7 +454,7 @@
             // 
             this.textBox16.Location = new System.Drawing.Point(144, 16);
             this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(100, 21);
+            this.textBox16.Size = new System.Drawing.Size(110, 21);
             this.textBox16.TabIndex = 16;
             // 
             // label16
@@ -477,7 +469,7 @@
             // 
             // textBox17
             // 
-            this.textBox17.Location = new System.Drawing.Point(341, 92);
+            this.textBox17.Location = new System.Drawing.Point(355, 92);
             this.textBox17.Name = "textBox17";
             this.textBox17.Size = new System.Drawing.Size(52, 21);
             this.textBox17.TabIndex = 18;
@@ -486,7 +478,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(249, 93);
+            this.label17.Location = new System.Drawing.Point(261, 93);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(90, 20);
             this.label17.TabIndex = 17;
@@ -543,15 +535,28 @@
             this.label20.TabIndex = 19;
             this.label20.Text = "State Code";
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CustomFormat = "dd-MM-yyyy";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.Location = new System.Drawing.Point(144, 70);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(110, 21);
+            this.dateTimePicker1.TabIndex = 21;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.CustomFormat = "dd-MM-yyyy";
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker2.Location = new System.Drawing.Point(597, 70);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(110, 21);
+            this.dateTimePicker2.TabIndex = 22;
+            // 
             // Product
             // 
             this.Product.HeaderText = "Product Name / Service";
             this.Product.Name = "Product";
-            // 
-            // Total
-            // 
-            this.Total.HeaderText = "Total";
-            this.Total.Name = "Total";
             // 
             // HSNACS
             // 
@@ -577,6 +582,7 @@
             // 
             this.Amount.HeaderText = "Amount";
             this.Amount.Name = "Amount";
+            this.Amount.ReadOnly = true;
             // 
             // LessDiscount
             // 
@@ -587,26 +593,47 @@
             // 
             this.TaxableValue.HeaderText = "Taxable Value";
             this.TaxableValue.Name = "TaxableValue";
+            this.TaxableValue.ReadOnly = true;
             // 
             // CGSTRate
             // 
             this.CGSTRate.HeaderText = "CGST Rate";
             this.CGSTRate.Name = "CGSTRate";
+            this.CGSTRate.ReadOnly = true;
             // 
             // CGSTAmount
             // 
             this.CGSTAmount.HeaderText = "CGST Amount";
             this.CGSTAmount.Name = "CGSTAmount";
+            this.CGSTAmount.ReadOnly = true;
             // 
             // SGSTRate
             // 
             this.SGSTRate.HeaderText = "SGST Rate";
             this.SGSTRate.Name = "SGSTRate";
+            this.SGSTRate.ReadOnly = true;
             // 
             // SGSTAmount
             // 
             this.SGSTAmount.HeaderText = "SGST Amount";
             this.SGSTAmount.Name = "SGSTAmount";
+            this.SGSTAmount.ReadOnly = true;
+            // 
+            // IGSTRate
+            // 
+            this.IGSTRate.HeaderText = "IGST Rate";
+            this.IGSTRate.Name = "IGSTRate";
+            // 
+            // IGSTAmount
+            // 
+            this.IGSTAmount.HeaderText = "IGST Amount";
+            this.IGSTAmount.Name = "IGSTAmount";
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
             // 
             // Quotation
             // 
@@ -644,9 +671,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -679,8 +704,9 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox textBox20;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Product;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
         private System.Windows.Forms.DataGridViewTextBoxColumn HSNACS;
         private System.Windows.Forms.DataGridViewTextBoxColumn UOM;
         private System.Windows.Forms.DataGridViewTextBoxColumn Qty;
@@ -692,5 +718,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CGSTAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn SGSTRate;
         private System.Windows.Forms.DataGridViewTextBoxColumn SGSTAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IGSTRate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IGSTAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
     }
 }
