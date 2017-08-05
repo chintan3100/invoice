@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="InvoiceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="GSTIN" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="StateCode" Type="bigint" />
+        </EntityType>
+        <EntityType Name="DetailOfConsignee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="GSTIN" Type="nvarchar(max)" />
+          <Property Name="State" Type="nvarchar(max)" />
+          <Property Name="StateCode" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="State" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StateCode" Type="bigint" Nullable="false" />
+          <Property Name="ReverseCharge" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Invoice.dbo.Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="bigint" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="HSN" Type="int" />
+          <Property Name="UOM" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Rate" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="float" />
+          <Property Name="TaxableValue" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="CGSTRate" Type="float" />
+          <Property Name="CGSTAmount" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="SGSTRate" Type="float" />
+          <Property Name="SGSTAmount" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="IGSTRate" Type="float" />
+          <Property Name="IGSTAmount" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="Total" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="TransportaionMode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="bigint" Nullable="false" />
+          <Property Name="VechicleNo" Type="nvarchar(max)" />
+          <Property Name="DateOfSupply" Type="nvarchar(max)" />
+          <Property Name="PlaceOfSupply" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Customer_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailOfConsignee_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="DetailOfConsignee" Type="Self.DetailOfConsignee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetailOfConsignee">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="TransportaionMode" Type="Self.TransportaionMode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransportaionMode">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InvoiceModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetailOfConsignee" EntityType="Self.DetailOfConsignee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransportaionMode" EntityType="Self.TransportaionMode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Product].[Id] AS [Id], 
+    [Product].[InvoiceId] AS [InvoiceId], 
+    [Product].[Name] AS [Name], 
+    [Product].[HSN] AS [HSN], 
+    [Product].[UOM] AS [UOM], 
+    [Product].[Quantity] AS [Quantity], 
+    [Product].[Rate] AS [Rate], 
+    [Product].[Amount] AS [Amount], 
+    [Product].[Discount] AS [Discount], 
+    [Product].[TaxableValue] AS [TaxableValue], 
+    [Product].[CGSTRate] AS [CGSTRate], 
+    [Product].[CGSTAmount] AS [CGSTAmount], 
+    [Product].[SGSTRate] AS [SGSTRate], 
+    [Product].[SGSTAmount] AS [SGSTAmount], 
+    [Product].[IGSTRate] AS [IGSTRate], 
+    [Product].[IGSTAmount] AS [IGSTAmount], 
+    [Product].[Total] AS [Total]
+    FROM [dbo].[Product] AS [Product]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Customer_InvoiceOrder" Association="Self.FK_Customer_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailOfConsignee_InvoiceOrder" Association="Self.FK_DetailOfConsignee_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="DetailOfConsignee" EntitySet="DetailOfConsignee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceOrder" Association="Self.FK_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="TransportaionMode" EntitySet="TransportaionMode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_InvoiceOrder" Association="Self.FK_Product_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InvoiceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GSTIN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StateCode" Type="Int64" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_Customer_InvoiceOrder" FromRole="Customer" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="DetailOfConsignee">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GSTIN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StateCode" Type="Int64" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_DetailOfConsignee_InvoiceOrder" FromRole="DetailOfConsignee" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateCode" Type="Int64" Nullable="false" />
+          <Property Name="ReverseCharge" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_InvoiceOrder" FromRole="Invoice" ToRole="Customer" />
+          <NavigationProperty Name="DetailOfConsignees" Relationship="Self.FK_DetailOfConsignee_InvoiceOrder" FromRole="Invoice" ToRole="DetailOfConsignee" />
+          <NavigationProperty Name="TransportaionModes" Relationship="Self.FK_InvoiceOrder" FromRole="Invoice" ToRole="TransportaionMode" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_InvoiceOrder" FromRole="Invoice" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="TransportaionMode">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int64" Nullable="false" />
+          <Property Name="VechicleNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfSupply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PlaceOfSupply" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_InvoiceOrder" FromRole="TransportaionMode" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int64" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HSN" Type="Int32" />
+          <Property Name="UOM" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="Double" />
+          <Property Name="TaxableValue" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CGSTRate" Type="Double" />
+          <Property Name="CGSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SGSTRate" Type="Double" />
+          <Property Name="SGSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IGSTRate" Type="Double" />
+          <Property Name="IGSTAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_Product_InvoiceOrder" FromRole="Product" ToRole="Invoice" />
+        </EntityType>
+        <Association Name="FK_Customer_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DetailOfConsignee_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="DetailOfConsignee" Type="Self.DetailOfConsignee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetailOfConsignee">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="TransportaionMode" Type="Self.TransportaionMode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransportaionMode">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_InvoiceOrder">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InvoiceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="DetailOfConsignees" EntityType="Self.DetailOfConsignee" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="TransportaionModes" EntityType="Self.TransportaionMode" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <AssociationSet Name="FK_Customer_InvoiceOrder" Association="Self.FK_Customer_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DetailOfConsignee_InvoiceOrder" Association="Self.FK_DetailOfConsignee_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="DetailOfConsignee" EntitySet="DetailOfConsignees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceOrder" Association="Self.FK_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="TransportaionMode" EntitySet="TransportaionModes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_InvoiceOrder" Association="Self.FK_Product_InvoiceOrder">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InvoiceModelStoreContainer" CdmEntityContainer="InvoiceEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="InvoiceModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="GSTIN" ColumnName="GSTIN" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetailOfConsignees">
+            <EntityTypeMapping TypeName="InvoiceModel.DetailOfConsignee">
+              <MappingFragment StoreEntitySet="DetailOfConsignee">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="GSTIN" ColumnName="GSTIN" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="InvoiceModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
+                <ScalarProperty Name="ReverseCharge" ColumnName="ReverseCharge" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransportaionModes">
+            <EntityTypeMapping TypeName="InvoiceModel.TransportaionMode">
+              <MappingFragment StoreEntitySet="TransportaionMode">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="VechicleNo" ColumnName="VechicleNo" />
+                <ScalarProperty Name="DateOfSupply" ColumnName="DateOfSupply" />
+                <ScalarProperty Name="PlaceOfSupply" ColumnName="PlaceOfSupply" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="InvoiceModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HSN" ColumnName="HSN" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="TaxableValue" ColumnName="TaxableValue" />
+                <ScalarProperty Name="CGSTRate" ColumnName="CGSTRate" />
+                <ScalarProperty Name="CGSTAmount" ColumnName="CGSTAmount" />
+                <ScalarProperty Name="SGSTRate" ColumnName="SGSTRate" />
+                <ScalarProperty Name="SGSTAmount" ColumnName="SGSTAmount" />
+                <ScalarProperty Name="IGSTRate" ColumnName="IGSTRate" />
+                <ScalarProperty Name="IGSTAmount" ColumnName="IGSTAmount" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
