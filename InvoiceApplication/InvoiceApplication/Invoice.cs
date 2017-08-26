@@ -17,9 +17,6 @@ namespace InvoiceApplication
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Invoice()
         {
-            this.Customers = new HashSet<Customer>();
-            this.DetailOfConsignees = new HashSet<DetailOfConsignee>();
-            this.TransportaionModes = new HashSet<TransportaionMode>();
             this.Products = new HashSet<Product>();
         }
     
@@ -27,15 +24,19 @@ namespace InvoiceApplication
         public string Number { get; set; }
         public System.DateTime Date { get; set; }
         public string State { get; set; }
-        public long StateCode { get; set; }
+        public Nullable<long> StateCode { get; set; }
         public string ReverseCharge { get; set; }
+        public Nullable<long> TransportationModeId { get; set; }
+        public Nullable<long> CustomerId { get; set; }
+        public Nullable<long> PaymentDetailId { get; set; }
+        public Nullable<long> DetailOfConsigneeId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetailOfConsignee> DetailOfConsignees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransportaionMode> TransportaionModes { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual DetailOfConsignee DetailOfConsignee { get; set; }
+        public virtual Invoice Invoice1 { get; set; }
+        public virtual Invoice Invoice2 { get; set; }
+        public virtual PaymentDetail PaymentDetail { get; set; }
+        public virtual TransportaionMode TransportaionMode { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

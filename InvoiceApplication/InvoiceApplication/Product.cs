@@ -15,7 +15,6 @@ namespace InvoiceApplication
     public partial class Product
     {
         public long Id { get; set; }
-        public Nullable<long> InvoiceId { get; set; }
         public string Name { get; set; }
         public Nullable<int> HSN { get; set; }
         public Nullable<int> UOM { get; set; }
@@ -31,6 +30,7 @@ namespace InvoiceApplication
         public Nullable<double> IGSTRate { get; set; }
         public Nullable<decimal> IGSTAmount { get; set; }
         public Nullable<decimal> Total { get; set; }
+        public Nullable<long> InvoiceId { get; set; }
     
         public virtual Invoice Invoice { get; set; }
     }

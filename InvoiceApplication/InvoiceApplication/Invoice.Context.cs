@@ -28,6 +28,7 @@ namespace InvoiceApplication
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<DetailOfConsignee> DetailOfConsignees { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
+        public virtual DbSet<PaymentDetail> PaymentDetails { get; set; }
         public virtual DbSet<TransportaionMode> TransportaionModes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
     }

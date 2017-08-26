@@ -12,20 +12,19 @@ namespace InvoiceApplication
     using System;
     using System.Collections.Generic;
     
-    public partial class DetailOfConsignee
+    public partial class PaymentDetail
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DetailOfConsignee()
+        public PaymentDetail()
         {
             this.Invoices = new HashSet<Invoice>();
         }
     
         public long Id { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public string GSTIN { get; set; }
-        public string State { get; set; }
-        public Nullable<long> StateCode { get; set; }
+        public string Mode { get; set; }
+        public string IFSCCode { get; set; }
+        public string AccountNumber { get; set; }
+        public Nullable<decimal> Amount { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }

@@ -14,12 +14,20 @@ namespace InvoiceApplication
     
     public partial class TransportaionMode
     {
-        public long Id { get; set; }
-        public long InvoiceId { get; set; }
-        public string VechicleNo { get; set; }
-        public string DateOfSupply { get; set; }
-        public string PlaceOfSupply { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TransportaionMode()
+        {
+            this.Invoices = new HashSet<Invoice>();
+        }
     
-        public virtual Invoice Invoice { get; set; }
+        public long Id { get; set; }
+        public string VechicleNo { get; set; }
+        public Nullable<System.DateTime> DateOfSupply { get; set; }
+        public string PlaceOfSupply { get; set; }
+        public string Mode { get; set; }
+        public Nullable<long> StateCode { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }
