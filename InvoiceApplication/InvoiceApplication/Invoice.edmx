@@ -47,7 +47,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Mode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Mode" Type="nvarchar(max)" />
           <Property Name="IFSCCode" Type="nvarchar(max)" />
           <Property Name="AccountNumber" Type="nvarchar(max)" />
           <Property Name="Amount" Type="numeric" Precision="18" Scale="2" />
@@ -276,7 +276,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Mode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IFSCCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AccountNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />

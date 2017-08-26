@@ -69,12 +69,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.txtTransCode = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtDateofSupply = new System.Windows.Forms.DateTimePicker();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HSNACS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UOM = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,11 +84,37 @@
             this.IGSTRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IGSTAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.txtTransCode = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtDateofSupply = new System.Windows.Forms.DateTimePicker();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtIFSC = new System.Windows.Forms.TextBox();
+            this.txtBankAccountNu = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtTotalbeforeTax = new System.Windows.Forms.Label();
+            this.txtTotalSGST = new System.Windows.Forms.Label();
+            this.txtTotalIGST = new System.Windows.Forms.Label();
+            this.txtTotalCGST = new System.Windows.Forms.Label();
+            this.txtTotalAmountFinal = new System.Windows.Forms.Label();
+            this.txtTotalGST = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -330,9 +350,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(7, 138);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 20);
+            this.label3.Size = new System.Drawing.Size(58, 20);
             this.label3.TabIndex = 15;
-            this.label3.Text = "State";
+            this.label3.Text = "State *";
             // 
             // txtReceiverGSTIN
             // 
@@ -364,9 +384,9 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(7, 25);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(51, 20);
+            this.label10.Size = new System.Drawing.Size(61, 20);
             this.label10.TabIndex = 0;
-            this.label10.Text = "Name";
+            this.label10.Text = "Name *";
             // 
             // label12
             // 
@@ -513,72 +533,8 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValidated);
             this.dataGridView1.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridView1_DefaultValuesNeeded);
+            this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing);
             this.dataGridView1.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridView1_RowPostPaint);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(358, 497);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Print";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // txtTransCode
-            // 
-            this.txtTransCode.Location = new System.Drawing.Point(401, 94);
-            this.txtTransCode.Name = "txtTransCode";
-            this.txtTransCode.Size = new System.Drawing.Size(52, 20);
-            this.txtTransCode.TabIndex = 20;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(309, 95);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(90, 20);
-            this.label18.TabIndex = 19;
-            this.label18.Text = "State Code";
-            // 
-            // txtDateofSupply
-            // 
-            this.txtDateofSupply.CustomFormat = "dd-MM-yyyy";
-            this.txtDateofSupply.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.txtDateofSupply.Location = new System.Drawing.Point(191, 69);
-            this.txtDateofSupply.Name = "txtDateofSupply";
-            this.txtDateofSupply.Size = new System.Drawing.Size(110, 20);
-            this.txtDateofSupply.TabIndex = 22;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.txtDateofSupply);
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.txtTransCode);
-            this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.label18);
-            this.groupBox4.Controls.Add(this.label7);
-            this.groupBox4.Controls.Add(this.txtTransPortMode);
-            this.groupBox4.Controls.Add(this.txtVehicleNumber);
-            this.groupBox4.Controls.Add(this.txtPlaceofSupply);
-            this.groupBox4.Location = new System.Drawing.Point(455, 28);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(506, 131);
-            this.groupBox4.TabIndex = 23;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Trans. Detail";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(455, 498);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 24;
-            this.button2.Text = "Save ";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Product
             // 
@@ -662,11 +618,275 @@
             this.Total.Name = "Total";
             this.Total.ReadOnly = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(265, 648);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Print";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // txtTransCode
+            // 
+            this.txtTransCode.Location = new System.Drawing.Point(401, 94);
+            this.txtTransCode.Name = "txtTransCode";
+            this.txtTransCode.Size = new System.Drawing.Size(52, 20);
+            this.txtTransCode.TabIndex = 20;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(309, 95);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(90, 20);
+            this.label18.TabIndex = 19;
+            this.label18.Text = "State Code";
+            // 
+            // txtDateofSupply
+            // 
+            this.txtDateofSupply.CustomFormat = "dd-MM-yyyy";
+            this.txtDateofSupply.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.txtDateofSupply.Location = new System.Drawing.Point(191, 69);
+            this.txtDateofSupply.Name = "txtDateofSupply";
+            this.txtDateofSupply.Size = new System.Drawing.Size(110, 20);
+            this.txtDateofSupply.TabIndex = 22;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.txtDateofSupply);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.txtTransCode);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.label18);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.txtTransPortMode);
+            this.groupBox4.Controls.Add(this.txtVehicleNumber);
+            this.groupBox4.Controls.Add(this.txtPlaceofSupply);
+            this.groupBox4.Location = new System.Drawing.Point(455, 28);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(506, 131);
+            this.groupBox4.TabIndex = 23;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Trans. Detail";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(358, 648);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 24;
+            this.button2.Text = "Save ";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.txtIFSC);
+            this.groupBox5.Controls.Add(this.txtBankAccountNu);
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.label24);
+            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(20, 496);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(427, 125);
+            this.groupBox5.TabIndex = 25;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Bank Detail";
+            // 
+            // txtIFSC
+            // 
+            this.txtIFSC.Location = new System.Drawing.Point(133, 52);
+            this.txtIFSC.Name = "txtIFSC";
+            this.txtIFSC.Size = new System.Drawing.Size(218, 21);
+            this.txtIFSC.TabIndex = 9;
+            // 
+            // txtBankAccountNu
+            // 
+            this.txtBankAccountNu.Location = new System.Drawing.Point(134, 25);
+            this.txtBankAccountNu.Name = "txtBankAccountNu";
+            this.txtBankAccountNu.Size = new System.Drawing.Size(217, 21);
+            this.txtBankAccountNu.TabIndex = 8;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(10, 52);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(46, 20);
+            this.label23.TabIndex = 7;
+            this.label23.Text = "IFSC";
+            this.label23.Click += new System.EventHandler(this.label23_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(7, 25);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(128, 20);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Account Number";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.txtTotalAmountFinal);
+            this.groupBox6.Controls.Add(this.txtTotalGST);
+            this.groupBox6.Controls.Add(this.txtTotalCGST);
+            this.groupBox6.Controls.Add(this.txtTotalIGST);
+            this.groupBox6.Controls.Add(this.txtTotalSGST);
+            this.groupBox6.Controls.Add(this.txtTotalbeforeTax);
+            this.groupBox6.Controls.Add(this.label29);
+            this.groupBox6.Controls.Add(this.label30);
+            this.groupBox6.Controls.Add(this.label25);
+            this.groupBox6.Controls.Add(this.label26);
+            this.groupBox6.Controls.Add(this.label27);
+            this.groupBox6.Controls.Add(this.label28);
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox6.Location = new System.Drawing.Point(498, 493);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(427, 190);
+            this.groupBox6.TabIndex = 26;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Total";
+            this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(10, 52);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(53, 20);
+            this.label27.TabIndex = 7;
+            this.label27.Text = "CGST";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(7, 25);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(181, 20);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "Total amount before Tax";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(10, 108);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(47, 20);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "IGST";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(10, 158);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(170, 20);
+            this.label26.TabIndex = 8;
+            this.label26.Text = "Total Amount after Tax";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(10, 136);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(141, 20);
+            this.label29.TabIndex = 11;
+            this.label29.Text = "Total Amount GST";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(10, 79);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(53, 20);
+            this.label30.TabIndex = 10;
+            this.label30.Text = "SGST";
+            // 
+            // txtTotalbeforeTax
+            // 
+            this.txtTotalbeforeTax.AutoSize = true;
+            this.txtTotalbeforeTax.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalbeforeTax.Location = new System.Drawing.Point(203, 26);
+            this.txtTotalbeforeTax.Name = "txtTotalbeforeTax";
+            this.txtTotalbeforeTax.Size = new System.Drawing.Size(18, 20);
+            this.txtTotalbeforeTax.TabIndex = 12;
+            this.txtTotalbeforeTax.Text = "0";
+            // 
+            // txtTotalSGST
+            // 
+            this.txtTotalSGST.AutoSize = true;
+            this.txtTotalSGST.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalSGST.Location = new System.Drawing.Point(204, 79);
+            this.txtTotalSGST.Name = "txtTotalSGST";
+            this.txtTotalSGST.Size = new System.Drawing.Size(18, 20);
+            this.txtTotalSGST.TabIndex = 13;
+            this.txtTotalSGST.Text = "0";
+            // 
+            // txtTotalIGST
+            // 
+            this.txtTotalIGST.AutoSize = true;
+            this.txtTotalIGST.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalIGST.Location = new System.Drawing.Point(204, 108);
+            this.txtTotalIGST.Name = "txtTotalIGST";
+            this.txtTotalIGST.Size = new System.Drawing.Size(18, 20);
+            this.txtTotalIGST.TabIndex = 14;
+            this.txtTotalIGST.Text = "0";
+            // 
+            // txtTotalCGST
+            // 
+            this.txtTotalCGST.AutoSize = true;
+            this.txtTotalCGST.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalCGST.Location = new System.Drawing.Point(204, 52);
+            this.txtTotalCGST.Name = "txtTotalCGST";
+            this.txtTotalCGST.Size = new System.Drawing.Size(18, 20);
+            this.txtTotalCGST.TabIndex = 15;
+            this.txtTotalCGST.Text = "0";
+            // 
+            // txtTotalAmountFinal
+            // 
+            this.txtTotalAmountFinal.AutoSize = true;
+            this.txtTotalAmountFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalAmountFinal.Location = new System.Drawing.Point(204, 160);
+            this.txtTotalAmountFinal.Name = "txtTotalAmountFinal";
+            this.txtTotalAmountFinal.Size = new System.Drawing.Size(18, 20);
+            this.txtTotalAmountFinal.TabIndex = 17;
+            this.txtTotalAmountFinal.Text = "0";
+            // 
+            // txtTotalGST
+            // 
+            this.txtTotalGST.AutoSize = true;
+            this.txtTotalGST.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalGST.Location = new System.Drawing.Point(204, 135);
+            this.txtTotalGST.Name = "txtTotalGST";
+            this.txtTotalGST.Size = new System.Drawing.Size(18, 20);
+            this.txtTotalGST.TabIndex = 16;
+            this.txtTotalGST.Text = "0";
+            // 
             // Quotation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(973, 532);
+            this.ClientSize = new System.Drawing.Size(973, 741);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button1);
@@ -677,6 +897,7 @@
             this.Name = "Quotation";
             this.Text = "Quotation";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Quotation_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -686,6 +907,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -754,5 +979,23 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IGSTRate;
         private System.Windows.Forms.DataGridViewTextBoxColumn IGSTAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox txtIFSC;
+        private System.Windows.Forms.TextBox txtBankAccountNu;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label txtTotalCGST;
+        private System.Windows.Forms.Label txtTotalIGST;
+        private System.Windows.Forms.Label txtTotalSGST;
+        private System.Windows.Forms.Label txtTotalbeforeTax;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label txtTotalAmountFinal;
+        private System.Windows.Forms.Label txtTotalGST;
     }
 }

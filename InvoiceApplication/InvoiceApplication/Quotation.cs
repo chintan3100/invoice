@@ -74,10 +74,40 @@ namespace InvoiceApplication
                         row.Cells[ColumnName.TaxableValue].Value = taxAbleValue;
                         row.Cells[ColumnName.CGSTAmount].Value = CGSTValue;
                         row.Cells[ColumnName.SGSTAmount].Value = SGSTValue;
-                        row.Cells[ColumnName.Total].Value = taxAbleValue - SGSTValue - SGSTValue;
+                        row.Cells[ColumnName.Total].Value = taxAbleValue + SGSTValue + SGSTValue;
 
 
                     }
+
+                decimal? totalAmount = 0;
+                decimal? CGST = 0;
+                decimal? SGST = 0;
+
+                foreach (DataGridViewRow gridRow in dataGridView1.Rows)
+                {
+                    if (!gridRow.IsNewRow)
+                    {
+
+                        var product = new Product();
+
+
+                        product.TaxableValue = Convert.ToDecimal(gridRow.Cells[ColumnName.TaxableValue].Value);
+                        totalAmount += product.TaxableValue;
+
+                        product.CGSTAmount = Convert.ToDecimal(gridRow.Cells[ColumnName.CGSTAmount].Value);
+                        CGST += product.CGSTAmount;
+
+                        product.SGSTAmount = Convert.ToDecimal(gridRow.Cells[ColumnName.SGSTAmount].Value);
+                        SGST += product.SGSTAmount;
+                    }
+                }
+
+
+                txtTotalbeforeTax.Text = Convert.ToString(totalAmount);
+                txtTotalCGST.Text = Convert.ToString(CGST);
+                txtTotalSGST.Text = Convert.ToString(SGST);
+                txtTotalGST.Text = Convert.ToString(CGST + SGST);
+                txtTotalAmountFinal.Text = Convert.ToString(totalAmount + CGST + SGST);
             }
         }
 
@@ -88,11 +118,21 @@ namespace InvoiceApplication
 
         private void button2_Click(object sender, EventArgs e)
         {
+            if (txtReceiverName.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter Receiver name");
+                return;
+            }
+            else if (txtReceiverState.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter Receiver state");
+                return;
+            }
+
             var source = dataGridView1.DataSource;
 
             var invoice = new Invoice();
             invoice.ReverseCharge = txtReverseCharge.Text;
-            invoice.Number = "123";
             invoice.Number = txtInvoiceNumber.Text;
             invoice.Date = txtInvoiceDate.Value;
             invoice.State = txtInvoiceState.Text;
@@ -139,11 +179,21 @@ namespace InvoiceApplication
             }
             invoice.Customer = customer;
 
+            var paymentDetail = new PaymentDetail();
+            paymentDetail.IFSCCode = txtIFSC.Text;
+            paymentDetail.AccountNumber = txtBankAccountNu.Text;
+            invoice.PaymentDetail = paymentDetail;
+            decimal? totalAmount = 0;
+            decimal? CGST = 0;
+            decimal? SGST = 0;
 
+
+            bool productExits = false;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 if (!row.IsNewRow)
                 {
+                    productExits = true;
                     var product = new Product();
                     product.Name = Convert.ToString(row.Cells[ColumnName.Product].Value);
                     product.HSN = Convert.ToInt32(row.Cells[ColumnName.HSNACS].Value);
@@ -153,17 +203,56 @@ namespace InvoiceApplication
                     product.Amount = Convert.ToDecimal(row.Cells[ColumnName.Amount].Value);
                     product.Discount = Convert.ToDouble(row.Cells[ColumnName.LessDiscount].Value);
                     product.TaxableValue = Convert.ToDecimal(row.Cells[ColumnName.TaxableValue].Value);
+                    totalAmount += product.TaxableValue;
                     product.CGSTRate = Convert.ToDouble(row.Cells[ColumnName.CGSTRate].Value);
                     product.CGSTAmount = Convert.ToDecimal(row.Cells[ColumnName.CGSTAmount].Value);
+                    CGST += product.CGSTAmount;
                     product.SGSTRate = Convert.ToDouble(row.Cells[ColumnName.SGSTRate].Value);
                     product.SGSTAmount = Convert.ToDecimal(row.Cells[ColumnName.SGSTAmount].Value);
+                    SGST += product.SGSTAmount;
                     product.IGSTRate = Convert.ToDouble(row.Cells[ColumnName.IGSTRate].Value);
                     product.IGSTAmount = Convert.ToDecimal(row.Cells[ColumnName.IGSTAmount].Value);
                     product.Total = Convert.ToDecimal(row.Cells[ColumnName.Total].Value);
+                    if (string.IsNullOrEmpty(product.Name))
+                    {
+                        MessageBox.Show("Please enter Product Name");
+                        return;
+                    }
+                    else if (product.HSN == null || product.HSN <= 0)
+                    {
+                        MessageBox.Show("Please enter HSN");
+                        return;
+                    }
+                    else if (product.UOM == null || product.UOM <= 0)
+                    {
+                        MessageBox.Show("Please enter UOM.");
+                        return;
+                    }
+                    else if (product.Quantity == null || product.Quantity.Value <= 0)
+                    {
+                        MessageBox.Show("Please enter Qty.");
+                        return;
+                    }
+                    else if (product.Rate == null || product.Rate.Value <= 0)
+                    {
+                        MessageBox.Show("Please enter Rate");
+                        return;
+                    }
+
                     invoice.Products.Add(product);
                 }
             }
 
+            if (!productExits)
+            {
+                MessageBox.Show("Please enter product");
+                return;
+            }
+            txtTotalbeforeTax.Text = Convert.ToString(totalAmount);
+            txtTotalCGST.Text = Convert.ToString(CGST);
+            txtTotalSGST.Text = Convert.ToString(SGST);
+            txtTotalbeforeTax.Text = Convert.ToString(CGST + SGST);
+            txtTotalCGST.Text = Convert.ToString(totalAmount + CGST);
             using (var context = new InvoiceEntities())
             {
                 context.Invoices.Add(invoice);
@@ -176,6 +265,55 @@ namespace InvoiceApplication
         {
             e.Row.Cells[ColumnName.CGSTRate].Value = 9;
             e.Row.Cells[ColumnName.SGSTRate].Value = 9;
+        }
+
+        private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress -= new KeyPressEventHandler(Column1_KeyPress);
+            if (dataGridView1.CurrentCell.ColumnIndex == 1 || dataGridView1.CurrentCell.ColumnIndex == 2 || dataGridView1.CurrentCell.ColumnIndex == 3 || dataGridView1.CurrentCell.ColumnIndex == 4) //Desired Column
+            {
+                TextBox tb = e.Control as TextBox;
+                if (tb != null)
+                {
+                    tb.KeyPress += new KeyPressEventHandler(Column1_KeyPress);
+                }
+            }
+        }
+        private void Column1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void label23_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Quotation_Load(object sender, EventArgs e)
+        {
+            using (var context = new InvoiceEntities())
+            {
+                var invoiceNumber = context.Invoices.OrderByDescending(i => i.Id).Select(i => i.Number).FirstOrDefault();
+                if (string.IsNullOrEmpty(invoiceNumber))
+                {
+                    invoiceNumber = "0";
+                }
+                txtInvoiceNumber.Text = (Convert.ToInt32(invoiceNumber) + 1).ToString();
+
+            }
         }
     }
 }
